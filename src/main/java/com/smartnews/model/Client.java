@@ -5,11 +5,9 @@ import java.util.List;
 
 @Entity
 @Table(name = Client.TABLE_NAME)
-@NamedQueries({@NamedQuery(name = Client.FIND_ALL, query = "select c from Client c"),
-               @NamedQuery(name = Client.FIND_BY_NAME, query = "select c from Client c where c.name = :name")})
+@NamedQueries({@NamedQuery(name = Client.FIND_ALL, query = "select c from Client c")})
 public class Client implements ModelEntity {
     public static final String FIND_ALL = "Client.findAll";
-    public static final String FIND_BY_NAME = "Client.findByName";
     public static final String TABLE_NAME = "client";
     public static final String SEQUENCE_GENERATOR = "client_seq_gen";
     public static final String SEQUENCE_NAME = "client_seq";
