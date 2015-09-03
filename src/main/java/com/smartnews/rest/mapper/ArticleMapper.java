@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class ArticleMapper implements RestMapper<ArticleDto, Article> {
@@ -17,22 +18,18 @@ public class ArticleMapper implements RestMapper<ArticleDto, Article> {
 
     @Override
     public ArticleDto mapToDto(Article article) {
-        List<TagDto> tagDtos = Lists.newArrayList(tagMapper.mapToDtos(article.getTags()));
-
         return ArticleDto.newBuilder(article.getId(), article.getName())
                 .url(article.getUrl())
                 .description(article.getDescription())
-                .tags(tagDtos)
+                .tags(tagMapper.mapToDtos(article.getTags()))
                 .build();
     }
 
     @Override
     public List<ArticleDto> mapToDtos(List<Article> articles) {
-        List<ArticleDto> articleDtos = Lists.newArrayList();
-        for (Article article : articles) {
-            articleDtos.add(mapToDto(article));
-        }
-        return articleDtos;
+        return articles.stream()
+                .map(this::mapToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
