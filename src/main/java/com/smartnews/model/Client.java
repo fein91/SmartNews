@@ -1,17 +1,18 @@
 package com.smartnews.model;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.List;
 
-/**
- * Created by fein on 7/22/2015.
- */
 @Entity
-@Table(name="client")
+@Table(name = Client.TABLE_NAME)
 @NamedQueries({@NamedQuery(name = Client.FIND_ALL, query = "select c from Client c")})
 public class Client implements ModelEntity {
     public static final String FIND_ALL = "Client.findAll";
+    public static final String TABLE_NAME = "client";
+    private static final String SEQUENCE_GENERATOR = "client_seq_gen";
+    private static final String SEQUENCE_NAME = "client_seq";
+    private static final String CLIENT_FK = "client_fk";
+    private static final String FOLDER_REFERENCED_COLUMN = "id";
 
     public Client() {
     }
@@ -21,13 +22,12 @@ public class Client implements ModelEntity {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "client_seq_gen")
-    @SequenceGenerator(name = "client_seq_gen", sequenceName = "client_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_GENERATOR)
+    @SequenceGenerator(name = SEQUENCE_GENERATOR, sequenceName = SEQUENCE_NAME, allocationSize=1)
     private long id;
     private String name;
-    //can't use FetchType.LAZY because of serialization
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name="client_fk", referencedColumnName="id")
+    @JoinColumn(name = CLIENT_FK, referencedColumnName = FOLDER_REFERENCED_COLUMN)
     private List<Folder> folders;
 
     public long getId() {

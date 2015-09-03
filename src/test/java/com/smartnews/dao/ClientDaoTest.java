@@ -5,6 +5,8 @@ import com.smartnews.model.Client;
 import com.smartnews.model.Folder;
 import com.smartnews.model.Tag;
 import org.junit.Test;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -13,9 +15,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-/**
-* Created by fein on 7/23/2015.
-*/
 public class ClientDaoTest extends AbstractClientDaoTest {
 
     private static final String TEST_CLIENT_INSERT_GET =  "testInsertAndGetClient";
@@ -26,6 +25,8 @@ public class ClientDaoTest extends AbstractClientDaoTest {
 
     //insert-get
     @Test
+    @Transactional
+    @Rollback(true)
     public void testInsertAndGetClient() {
         Client testClient = new Client(TEST_CLIENT_INSERT_GET);
         clientDao.save(testClient);
@@ -38,6 +39,8 @@ public class ClientDaoTest extends AbstractClientDaoTest {
 
     //insert-update-get
     @Test
+    @Transactional
+    @Rollback(true)
     public void testUpdateClient() {
         Client testClient = new Client(TEST_UPDATE_CLIENT);
         clientDao.save(testClient);
@@ -52,6 +55,8 @@ public class ClientDaoTest extends AbstractClientDaoTest {
 
     //insert-delete-get
     @Test
+    @Transactional
+    @Rollback(true)
     public void testDeleteClient() {
         Client testClient = new Client(TEST_DELETE_CLIENT);
         clientDao.save(testClient);
@@ -64,6 +69,8 @@ public class ClientDaoTest extends AbstractClientDaoTest {
     }
 
     @Test
+    @Transactional
+    @Rollback(true)
     public void testCascadeInsertClient() {
         Client testClient = new Client(TEST_CLIENT_INSERT_WITH_FOLDERS);
         Folder videoFolder = new Folder();
@@ -84,5 +91,8 @@ public class ClientDaoTest extends AbstractClientDaoTest {
         pronFolder.setArticles(Collections.singletonList(article));
 
         clientDao.save(testClient);
+
+        Client actualClient = clientDao.findById(testClient.getId());
+        assertNotNull(actualClient);
     }
 }

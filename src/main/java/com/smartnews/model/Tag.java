@@ -3,21 +3,22 @@ package com.smartnews.model;
 import javax.persistence.*;
 import java.util.List;
 
-/**
- * Created by xelamanster on 13.08.2015.
- */
 @Entity
-@Table(name="tag")
+@Table(name = Tag.TABLE_NAME)
 @NamedQueries({@NamedQuery(name = Tag.FIND_ALL, query = "select f from Tag f")})
 public class Tag implements ModelEntity {
     public static final String FIND_ALL = "Tag.findAll";
+    public static final String TABLE_NAME = "tag";
+    private static final String SEQUENCE_GENERATOR = "tag_seq_gen";
+    private static final String SEQUENCE_NAME = "tag_seq";
+    private static final String ARTICLE_MAPPED_BY = "tags";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tag_seq_gen")
-    @SequenceGenerator(name = "tag_seq_gen", sequenceName = "tag_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_GENERATOR)
+    @SequenceGenerator(name = SEQUENCE_GENERATOR, sequenceName = SEQUENCE_NAME, allocationSize=1)
     private long id;
 
-    @ManyToMany(mappedBy = "tags")
+    @ManyToMany(mappedBy = ARTICLE_MAPPED_BY)
     private List<Article> articles;
 
     private String name;

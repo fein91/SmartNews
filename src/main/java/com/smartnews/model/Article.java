@@ -3,32 +3,38 @@ package com.smartnews.model;
 import javax.persistence.*;
 import java.util.List;
 
-/**
- * Created by xelamanster on 13.08.2015.
- */
 @Entity
-@Table(name="article")
+@Table(name = Article.TABLE_NAME)
 @NamedQueries({@NamedQuery(name = Article.FIND_ALL, query = "select f from Article f")})
 public class Article implements ModelEntity {
     public static final String FIND_ALL = "Article.findAll";
+    public static final String TABLE_NAME = "article";
+    private static final String SEQUENCE_GENERATOR = "article_seq_gen";
+    private static final String SEQUENCE_NAME = "article_seq";
+    private static final String FOLDER_FK = "folder_fk";
+    private static final String TAG_JOINT_TABLE_NAME = "article_tag";
+    private static final String TAG_JOINT_COLUMN_NAME = "article_fk";
+    private static final String TAG_JOINT_REFERENCED_COLUMN = "id";
+    private static final String TAG_INVERSE_JOINT_COLUMN_NAME = "tag_fk";
+    private static final String TAG_INVERSE_JOINT_REFERENCED_COLUMN = "id";
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "article_seq_gen")
-    @SequenceGenerator(name = "article_seq_gen", sequenceName = "article_seq", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_GENERATOR)
+    @SequenceGenerator(name = SEQUENCE_GENERATOR, sequenceName = SEQUENCE_NAME, allocationSize=1)
     private long id;
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "folder_fk")
+    @JoinColumn(name = FOLDER_FK)
     private Folder folder;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "article_tag",
+    @JoinTable(name = TAG_JOINT_TABLE_NAME,
             joinColumns = {
-                    @JoinColumn(name = "article_fk", referencedColumnName = "id")
+                    @JoinColumn(name = TAG_JOINT_COLUMN_NAME, referencedColumnName = TAG_JOINT_REFERENCED_COLUMN)
             },
             inverseJoinColumns = {
-                    @JoinColumn(name = "tag_fk", referencedColumnName = "id")
+                    @JoinColumn(name = TAG_INVERSE_JOINT_COLUMN_NAME, referencedColumnName = TAG_INVERSE_JOINT_REFERENCED_COLUMN)
             }
     )
     private List<Tag> tags;
