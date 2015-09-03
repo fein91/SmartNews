@@ -1,9 +1,7 @@
 package com.smartnews.rest.mapper;
 
-import com.google.common.collect.Lists;
 import com.smartnews.model.Article;
 import com.smartnews.rest.dto.ArticleDto;
-import com.smartnews.rest.dto.TagDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
