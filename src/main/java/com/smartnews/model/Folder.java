@@ -9,11 +9,11 @@ import java.util.List;
 public class Folder implements ModelEntity {
     public static final String TABLE_NAME = "folder";
     public static final String FIND_ALL = "Folder.findAll";
-    public static final String SEQUENCE_GENERATOR = "folder_seq_gen";
-    public static final String SEQUENCE_NAME = "folder_seq";
-    public static final String PARENT_FK = "parent_fk";
-    public static final String FOLDER_FK = "folder_fk";
-    public static final String ARTICLE_REFERENCED_COLUMN = "id";
+    private static final String SEQUENCE_GENERATOR = "folder_seq_gen";
+    private static final String SEQUENCE_NAME = "folder_seq";
+    private static final String PARENT_FK = "parent_fk";
+    private static final String FOLDER_FK = "folder_fk";
+    private static final String ARTICLE_REFERENCED_COLUMN = "id";
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_GENERATOR)

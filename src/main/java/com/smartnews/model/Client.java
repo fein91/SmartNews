@@ -9,10 +9,10 @@ import java.util.List;
 public class Client implements ModelEntity {
     public static final String FIND_ALL = "Client.findAll";
     public static final String TABLE_NAME = "client";
-    public static final String SEQUENCE_GENERATOR = "client_seq_gen";
-    public static final String SEQUENCE_NAME = "client_seq";
-    public static final String CLIENT_FK = "client_fk";
-    public static final String FOLDER_REFERENCED_COLUMN = "id";
+    private static final String SEQUENCE_GENERATOR = "client_seq_gen";
+    private static final String SEQUENCE_NAME = "client_seq";
+    private static final String CLIENT_FK = "client_fk";
+    private static final String FOLDER_REFERENCED_COLUMN = "id";
 
     public Client() {
     }

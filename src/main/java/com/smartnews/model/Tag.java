@@ -9,9 +9,9 @@ import java.util.List;
 public class Tag implements ModelEntity {
     public static final String FIND_ALL = "Tag.findAll";
     public static final String TABLE_NAME = "tag";
-    public static final String SEQUENCE_GENERATOR = "tag_seq_gen";
-    public static final String SEQUENCE_NAME = "tag_seq";
-    public static final String ARTICLE_MAPPED_BY = "tags";
+    private static final String SEQUENCE_GENERATOR = "tag_seq_gen";
+    private static final String SEQUENCE_NAME = "tag_seq";
+    private static final String ARTICLE_MAPPED_BY = "tags";
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_GENERATOR)

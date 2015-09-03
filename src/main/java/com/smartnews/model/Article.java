@@ -9,14 +9,14 @@ import java.util.List;
 public class Article implements ModelEntity {
     public static final String FIND_ALL = "Article.findAll";
     public static final String TABLE_NAME = "article";
-    public static final String SEQUENCE_GENERATOR = "article_seq_gen";
-    public static final String SEQUENCE_NAME = "article_seq";
-    public static final String FOLDER_FK = "folder_fk";
-    public static final String TAG_JOINT_TABLE_NAME = "article_tag";
-    public static final String TAG_JOINT_COLUMN_NAME = "article_fk";
-    public static final String TAG_JOINT_REFERENCED_COLUMN = "id";
-    public static final String TAG_INVERSE_JOINT_COLUMN_NAME = "tag_fk";
-    public static final String TAG_INVERSE_JOINT_REFERENCED_COLUMN = "id";
+    private static final String SEQUENCE_GENERATOR = "article_seq_gen";
+    private static final String SEQUENCE_NAME = "article_seq";
+    private static final String FOLDER_FK = "folder_fk";
+    private static final String TAG_JOINT_TABLE_NAME = "article_tag";
+    private static final String TAG_JOINT_COLUMN_NAME = "article_fk";
+    private static final String TAG_JOINT_REFERENCED_COLUMN = "id";
+    private static final String TAG_INVERSE_JOINT_COLUMN_NAME = "tag_fk";
+    private static final String TAG_INVERSE_JOINT_REFERENCED_COLUMN = "id";
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_GENERATOR)
