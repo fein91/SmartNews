@@ -13,9 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by fein on 8/13/2015.
- */
 @Service
 public class ClientServiceImpl implements ClientService {
 
@@ -36,10 +33,6 @@ public class ClientServiceImpl implements ClientService {
     @Override
     @Transactional
     public List<ClientDto> findAllClients() {
-        LOG.info("findAllClients start");
-        List<ClientDto> clientDtos = new ArrayList<ClientDto>();
-        clientDtos.addAll(clientMapper.mapToDtos(clientDao.list()));
-        LOG.info("findAllClients end");
-        return clientDtos;
+        return clientMapper.mapToDtos(clientDao.list());
     }
 }
