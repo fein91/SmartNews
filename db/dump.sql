@@ -40,7 +40,7 @@ SET default_with_oids = false;
 --
 
 CREATE TABLE article (
-    id bigint NOT NULL,
+    id bigint DEFAULT nextval('article_seq'::regclass) NOT NULL,
     name character varying(4000),
     folder_fk bigint,
     url character varying(4000),
