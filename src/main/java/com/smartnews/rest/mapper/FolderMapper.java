@@ -7,10 +7,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Component
 public class FolderMapper implements RestMapper<FolderDto, Folder> {
 
@@ -33,20 +29,7 @@ public class FolderMapper implements RestMapper<FolderDto, Folder> {
     }
 
     @Override
-    public List<FolderDto> mapToDtos(List<Folder> folders) {
-        return folders.stream()
-                .map(this::mapToDto)
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public Folder mapToEntity(FolderDto folderDto) {
         return null;
     }
-
-    @Override
-    public List<Folder> mapToEntities(List<FolderDto> dtos) {
-        return null;
-    }
-
 }

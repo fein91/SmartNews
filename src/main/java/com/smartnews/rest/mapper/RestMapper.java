@@ -4,16 +4,22 @@ import com.smartnews.model.ModelEntity;
 import com.smartnews.rest.dto.NamedDto;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
-/**
- * Created by fein on 8/27/2015.
- */
 public interface RestMapper<T extends NamedDto, E extends ModelEntity> {
-    public T mapToDto(E entity);
+    T mapToDto(E entity);
 
-    public List<T> mapToDtos(List<E> entities);
+    default List<T> mapToDtos(List<E> entities) {
+        return entities.stream()
+                .map(this::mapToDto)
+                .collect(Collectors.toList());
+    }
 
-    public E mapToEntity(T dto);
+    E mapToEntity(T dto);
 
-    public List<E> mapToEntities(List<T> dtos);
+    default List<E> mapToEntities(List<T> dtos) {
+        return dtos.stream()
+                .map(this::mapToEntity)
+                .collect(Collectors.toList());
+    }
 }
