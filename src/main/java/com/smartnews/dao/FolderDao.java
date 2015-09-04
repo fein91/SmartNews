@@ -4,9 +4,6 @@ import com.smartnews.model.Folder;
 
 import java.util.List;
 
-/**
- * Created by fein on 8/11/2015.
- */
 public interface FolderDao {
     public void save(Folder folder);
 

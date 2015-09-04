@@ -9,11 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * Created by fein on 8/30/2015.
- */
 @Service
-public class ArticlesServiceImpl implements ArticlesService {
+public class FoldersServiceImpl implements FoldersService {
 
     @Autowired
     private ArticleDao articleDao;
@@ -21,8 +18,8 @@ public class ArticlesServiceImpl implements ArticlesService {
     private ArticleMapper articleMapper;
 
     @Transactional
-    public List<ArticleDto> findPaginatedArticles(int page, int size) {
+    public List<ArticleDto> findPaginatedArticlesByFolderID(long folderId, int page, int size) {
         int start = (page - 1) * size;
-        return articleMapper.mapToDtos(articleDao.findPaginatedArticles(start, size));
+        return articleMapper.mapToDtos(articleDao.findPaginatedArticlesByFolderId(folderId, start, size));
     }
 }
