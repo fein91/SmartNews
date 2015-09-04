@@ -9,10 +9,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
-/**
- * Created by fein on 8/27/2015.
- */
 @Component
 public class FolderMapper implements RestMapper<FolderDto, Folder> {
 
@@ -35,13 +33,10 @@ public class FolderMapper implements RestMapper<FolderDto, Folder> {
     }
 
     @Override
-    //TODO try to use java 8 stream api
     public List<FolderDto> mapToDtos(List<Folder> folders) {
-        List<FolderDto> folderDtos = new ArrayList<FolderDto>();
-        for (Folder folder : folders) {
-            folderDtos.add(mapToDto(folder));
-        }
-        return folderDtos;
+        return folders.stream()
+                .map(this::mapToDto)
+                .collect(Collectors.toList());
     }
 
     @Override

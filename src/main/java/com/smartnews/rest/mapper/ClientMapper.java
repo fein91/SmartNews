@@ -9,11 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
-/**
- * Created by fein on 8/27/2015.
- */
 @Component
 public class ClientMapper implements RestMapper<ClientDto, Client> {
 
@@ -24,20 +23,14 @@ public class ClientMapper implements RestMapper<ClientDto, Client> {
 
     @Override
     public ClientDto mapToDto(Client client) {
-        LOG.info("mapToDto start");
-        List<FolderDto> folderDtos = new ArrayList<FolderDto>();
-        folderDtos.addAll(folderMapper.mapToDtos(client.getFolders()));
-        LOG.info("mapToDto end");
-        return new ClientDto(client.getId(), client.getName(), folderDtos);
+        return new ClientDto(client.getId(), client.getName(), folderMapper.mapToDtos(client.getFolders()));
     }
 
     @Override
     public List<ClientDto> mapToDtos(List<Client> clients) {
-        List<ClientDto> clientDtos = new ArrayList<ClientDto>();
-        for (Client client : clients) {
-            clientDtos.add(mapToDto(client));
-        }
-        return clientDtos;
+        return clients.stream()
+                .map(this::mapToDto)
+                .collect(Collectors.toList());
     }
 
     @Override

@@ -6,6 +6,7 @@ import com.smartnews.rest.dto.TagDto;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class TagMapper implements RestMapper<TagDto, Tag> {
@@ -16,11 +17,9 @@ public class TagMapper implements RestMapper<TagDto, Tag> {
 
     @Override
     public List<TagDto> mapToDtos(List<Tag> tags) {
-        List<TagDto> tagDtos = Lists.newArrayListWithCapacity(tags.size());
-        for (Tag tag : tags) {
-            tagDtos.add(mapToDto(tag));
-        }
-        return tagDtos;
+        return tags.stream()
+                .map(this::mapToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
