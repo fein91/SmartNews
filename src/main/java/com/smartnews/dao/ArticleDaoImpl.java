@@ -10,7 +10,7 @@ import java.util.List;
 public class ArticleDaoImpl extends AbstractDao implements ArticleDao  {
 
     @Override
-    public List<Article> findPaginatedArticlesByFolderId(long folderId, int start, int limit) {
+    public List<Article> findByFolderId(long folderId, int start, int limit) {
         return getSession().createCriteria(Article.class)
                 .add(Restrictions.eq(Article.FOLDER_FK, folderId))
                 .setFirstResult(start)

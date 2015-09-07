@@ -25,8 +25,7 @@ public class FoldersServiceController {
     private FoldersService foldersService;
 
     @RequestMapping(value = "/folder/{folderId}/articles", method = RequestMethod.GET)
-    public List<ArticleDto> findPaginatedArticlesByFolderId(@PathVariable long folderId, @RequestParam("page") int page,
-                                                            @RequestParam("size") int size) {
+    public List<ArticleDto> getArticles(@PathVariable long folderId, @RequestParam("page") int page, @RequestParam("size") int size) {
         LOG.info(String.format(LOADING_ARTICLES_MSG, folderId, page, size));
         if (page < MIN_PAGE_NUMBER || size < MIN_PAGE_SIZE) {
             String errorMessage = String.format(WRONG_PAGING_PARAMETERS_MSG, page, size);

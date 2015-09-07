@@ -20,6 +20,6 @@ public class FoldersServiceImpl implements FoldersService {
     @Transactional
     public List<ArticleDto> findPaginatedArticlesByFolderID(long folderId, int page, int size) {
         int start = (page - 1) * size;
-        return articleMapper.mapToDtos(articleDao.findPaginatedArticlesByFolderId(folderId, start, size));
+        return articleMapper.mapToDtos(articleDao.findByFolderId(folderId, start, size));
     }
 }
