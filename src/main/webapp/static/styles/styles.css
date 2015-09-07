@@ -20,3 +20,23 @@ html {
 .indented {
     text-indent: 20px;
 }
+
+.leftNavBar {
+    float:left;
+    height: 100%;
+    display: inline;
+    margin: 0;
+    padding: 0;
+    margin-right: 10px;
+}
+
+.content {
+    float: left;
+    margin: 0;
+    padding: 0;
+    display: inline;
+}
+
+.article {
+    border-bottom: 1px solid;
+}

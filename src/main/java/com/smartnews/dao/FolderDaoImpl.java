@@ -5,9 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-/**
- * Created by fein on 8/11/2015.
- */
 @Repository
 public class FolderDaoImpl extends AbstractDao implements FolderDao {
     @Override
@@ -27,7 +24,7 @@ public class FolderDaoImpl extends AbstractDao implements FolderDao {
 
     @Override
     public Folder findById(long id) {
-        throw new UnsupportedOperationException();
+        return (Folder) getSession().get(Folder.class, id);
     }
 
     @Override

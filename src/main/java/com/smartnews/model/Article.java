@@ -5,13 +5,13 @@ import java.util.List;
 
 @Entity
 @Table(name = Article.TABLE_NAME)
-@NamedQueries({@NamedQuery(name = Article.FIND_ALL, query = "select f from Article f")})
+@NamedQueries({@NamedQuery(name = Article.FIND_ALL, query = "select a from Article a")})
 public class Article implements ModelEntity {
     public static final String FIND_ALL = "Article.findAll";
     public static final String TABLE_NAME = "article";
     private static final String SEQUENCE_GENERATOR = "article_seq_gen";
     private static final String SEQUENCE_NAME = "article_seq";
-    private static final String FOLDER_FK = "folder_fk";
+    public static final String FOLDER_FK = "folder_fk";
     private static final String TAG_JOINT_TABLE_NAME = "article_tag";
     private static final String TAG_JOINT_COLUMN_NAME = "article_fk";
     private static final String TAG_JOINT_REFERENCED_COLUMN = "id";
@@ -23,10 +23,7 @@ public class Article implements ModelEntity {
     @SequenceGenerator(name = SEQUENCE_GENERATOR, sequenceName = SEQUENCE_NAME, allocationSize=1)
     private long id;
     private String name;
-
-    @ManyToOne
-    @JoinColumn(name = FOLDER_FK)
-    private Folder folder;
+    private long folder_fk;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = TAG_JOINT_TABLE_NAME,
@@ -50,12 +47,12 @@ public class Article implements ModelEntity {
         this.id = id;
     }
 
-    public Folder getFolder() {
-        return folder;
+    public long getFolder_fk() {
+        return folder_fk;
     }
 
-    public void setFolder(Folder folder) {
-        this.folder = folder;
+    public void setFolder_fk(long folder_fk) {
+        this.folder_fk = folder_fk;
     }
 
     public List<Tag> getTags() {
