@@ -1,47 +1,33 @@
 (function(){
-    var app = angular.module('smartnews', ['infinite-scroll', 'ArticlesService']);
-    app.controller('NewsController', [ '$http', function($http) {
-        var smartnews = this;
+    var app = angular.module('smartnews', ['infinite-scroll']);
 
+    app.service('articlesService', [ '$http', function($http) {
 
-
-        this.nextPage = function(ArticlesService) {
-            ArticlesService.nextPage(true);
-        };
+        this.nextPage = function(folderId, page, size) {
+            var url = "/rest/folder/" + folderId + "/articles?page=" + page + '&size=' + size;
+            return $http.get(url);
+        }
     }]);
 
-    app.service('ArticlesService', function() {
-            this.articles = [];
-            this.fodlerId = 27;
-            this.page = 1;
-            this.size = 17;
+    app.controller('NewsController', [ '$scope', 'articlesService', function($scope, articlesService) {
+        var smartnews = this;
+        this.fodlerId = 27;
+        this.page = 1;
+        this.size = 17;
+        $scope.articles = [];
 
-            this.nextPage = function(isBackEndDisabled) {
-                if (isBackEndDisabled) {
-                    for (var i = 0; i < this.size; i++) {
-                        var randomId = Math.floor((Math.random() * 1000) + 1);
-                        var testArticle = {
-                            id: randomId,
-                            name: 'test article' + randomId,
-                            description: 'test description test description test description test description test description test description'
-                        };
-                        this.articles.push(testArticle);
+        this.nextPage = function() {
+            articlesService.nextPage(this.fodlerId, this.page, this.size).then(function(response){
+                var items = response.data;
+
+                if (items.length > 0) {
+                    this.page++;
+                    for (var i = 0; i < items.length; i++) {
+                        $scope.articles.push(items[i]);
                     }
-                } else {
-                    var url = "/rest/folder/" + this.fodlerId + "/articles?page=" + this.page + '&size=' + this.size;
-                    $http.get(url).success(function(data) {
-                        var items = data;
-
-                        if (items.length > 0) {
-                            smartnews.page++;
-                            for (var i = 0; i < items.length; i++) {
-                                smartnews.articles.push(items[i]);
-                            };
-                        }
-                    });
                 }
-            }
-        }
-    );
+            });
+        };
+    }]);
 })();
 

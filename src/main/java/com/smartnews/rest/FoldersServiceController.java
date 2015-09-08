@@ -32,6 +32,6 @@ public class FoldersServiceController {
             LOG.warn(errorMessage);
             throw new ResourceNotFoundException(errorMessage);
         }
-        return foldersService.findPaginatedArticlesByFolderID(folderId, page, size);
+        return foldersService.findArticlesByFolderID(folderId, page, size);
     }
 }
