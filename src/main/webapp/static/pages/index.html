@@ -9,13 +9,14 @@
     <script src="../js/abn_tree_directive.js"></script>
     <script src="../js/app.js"></script>
     <link rel="stylesheet" type="text/css" href="../styles/styles.css">
+    <link rel="stylesheet" type="text/css" href="../styles/abn_tree.css">
 </head>
 <body>
-    <div id="wrapper">
+    <div id="wrapper" ng-controller="NewsController as news" ng-init="news.init()">
         <div class="leftNavBar">
-            <abn-tree tree-data="example_treedata"></abn-tree>
+            <abn-tree tree-data="folders"></abn-tree>
         </div>
-        <div class="content" ng-controller="NewsController as news">
+        <div class="content">
             <div infinite-scroll="news.nextPage()">
                 <div class="article" ng-repeat='article in articles'>
                     <h1>{{article.name}}</h1>
@@ -27,4 +28,5 @@
     </div>
 </body>
 </html>
+
 

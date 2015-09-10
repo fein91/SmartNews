@@ -12,6 +12,7 @@ public class Folder implements ModelEntity {
     private static final String SEQUENCE_GENERATOR = "folder_seq_gen";
     private static final String SEQUENCE_NAME = "folder_seq";
     private static final String PARENT_FK = "parent_fk";
+    private static final String PARENT_FOLDER = "parentFolder";
     private static final String FOLDER_FK = "folder_fk";
     private static final String ARTICLE_REFERENCED_COLUMN = "id";
 
@@ -22,6 +23,8 @@ public class Folder implements ModelEntity {
     @ManyToOne
     @JoinColumn(name = PARENT_FK)
     private Folder parentFolder;
+    @OneToMany(mappedBy= PARENT_FOLDER)
+    public List<Folder> subFolders;
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = FOLDER_FK, referencedColumnName = ARTICLE_REFERENCED_COLUMN)
     private List<Article> articles;
@@ -41,6 +44,14 @@ public class Folder implements ModelEntity {
 
     public void setParentFolder(Folder parentFolder) {
         this.parentFolder = parentFolder;
+    }
+
+    public List<Folder> getSubFolders() {
+        return subFolders;
+    }
+
+    public void setSubFolders(List<Folder> subFolders) {
+        this.subFolders = subFolders;
     }
 
     public String getName() {

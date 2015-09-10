@@ -1,6 +1,5 @@
 package com.smartnews.rest.mapper;
 
-import com.smartnews.model.Article;
 import com.smartnews.model.Folder;
 import com.smartnews.rest.dto.ArticleDto;
 import com.smartnews.rest.dto.FolderDto;
@@ -26,7 +25,11 @@ public class FolderMapper implements RestMapper<FolderDto, Folder> {
                 ? mapToDto(folder.getParentFolder())
                 : null;
         List<ArticleDto> articles = foldersService.findArticlesByFolderID(folder.getId(), FoldersService.DEFAULT_PAGE, FoldersService.DEFAULT_PAGE_SIZE);
-        return new FolderDto(folder.getId(), folder.getName(), parentFolderDto, articles);
+        return FolderDto.newBuilder(folder.getId(), folder.getName())
+                .parent(parentFolderDto)
+                .children(mapToDtos(folder.getSubFolders()))
+                .articles(articles)
+                .build();
     }
 
     @Override
