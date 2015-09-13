@@ -8,7 +8,9 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
+import java.util.Collections;
 import java.util.List;
 
 @Component
@@ -21,13 +23,12 @@ public class FolderMapper implements RestMapper<FolderDto, Folder> {
 
     @Override
     public FolderDto mapToDto(Folder folder) {
-        FolderDto parentFolderDto = folder.getParentFolder() != null
-                ? mapToDto(folder.getParentFolder())
-                : null;
+        List<FolderDto> children = !CollectionUtils.isEmpty(folder.getSubFolders())
+                ? mapToDtos(folder.getSubFolders())
+                : Collections.emptyList();
         List<ArticleDto> articles = foldersService.findArticlesByFolderID(folder.getId(), FoldersService.DEFAULT_PAGE, FoldersService.DEFAULT_PAGE_SIZE);
         return FolderDto.newBuilder(folder.getId(), folder.getName())
-                .parent(parentFolderDto)
-                .children(mapToDtos(folder.getSubFolders()))
+                .children(children)
                 .articles(articles)
                 .build();
     }

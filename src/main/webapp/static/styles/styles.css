@@ -23,6 +23,7 @@ html {
 
 .leftNavBar {
     float:left;
+    width: 10%;
     height: 100%;
     display: inline;
     margin: 0;
@@ -39,4 +40,28 @@ html {
 
 .article {
     border-bottom: 1px solid;
+}
+
+.icon-plus {
+    width: 15px;
+    height: 15px;
+    text-align: center;
+    vertical-align: middle;
+    content: url("../images/add.ico");
+}
+
+.icon-minus {
+    width: 15px;
+    height: 15px;
+    text-align: center;
+    vertical-align: middle;
+    content:url("../images/minus.ico");
+}
+
+.icon-file {
+    width: 15px;
+    height: 15px;
+    text-align: center;
+    vertical-align: middle;
+    content:url("../images/folder.ico");
 }

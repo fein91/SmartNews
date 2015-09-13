@@ -5,11 +5,12 @@
 
         this.nextPage = function(folderId, page, size) {
             var url = "/rest/folder/" + folderId + "/articles?page=" + page + '&size=' + size;
+            console.log(url);
             return $http.get(url);
         }
 
         this.findRootFolderId = function(folders) {
-            return folders.length > 0 ? folders[0]: undefined;
+            return folders.length > 0 ? folders[0].id : undefined;
         }
     }]);
 
@@ -17,37 +18,46 @@
 
         this.getClient = function(clientId) {
             var url = "/rest/client/" + clientId;
+            console.log(url);
             return $http.get(url);
         }
     }]);
 
     app.controller('NewsController', [ '$scope', 'articlesService', 'clientsService', function($scope, articlesService, clientsService) {
-        this.clientId = 53;
-        this.page = 1;
-        this.size = 17;
+        var self = this;
+        self.clientId = 53;
+        self.page = 1;
+        self.size = 17;
         $scope.client = {};
         $scope.articles = [];
         $scope.folders = [];
+        var folderId;
 
-        this.init = function() {
-            clientsService.getClient(this.clientId).then(function(response){
+        self.init = function() {
+            return clientsService.getClient(self.clientId).then(function(response){
                 var client = response.data;
-                for (var i = 0; i < client.folders.length; i++) {
-                    $scope.folders.push(client.folders[i]);
+                var folders = client.folders;
+                for (var i = 0; i < folders.length; i++) {
+                    $scope.folders.push(folders[i]);
                 }
+                folderId = articlesService.findRootFolderId(folders)
                 $scope.client = client;
             });
         };
 
-        this.nextPage = function() {
-            var folderId = articlesService.findRootFolderId($scope.folders);
+        self.onFolderSelect = function(branch) {
+            folderId = branch.id;
+            $scope.articles = branch.articles
+            self.page = 2;
+        }
 
+        self.nextArticlesPage = function() {
             if (folderId) {
-                articlesService.nextPage(folderId, this.page, this.size).then(function(response){
+                articlesService.nextPage(folderId, self.page, self.size).then(function(response){
                     var items = response.data;
 
                     if (items.length > 0) {
-                        this.page++;
+                        self.page++;
                         for (var i = 0; i < items.length; i++) {
                             $scope.articles.push(items[i]);
                         }
@@ -55,6 +65,10 @@
                 });
             }
         };
+
+        self.init().then(function(resp) {
+            self.nextArticlesPage();
+        });
     }]);
 })();
 

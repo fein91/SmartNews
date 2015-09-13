@@ -12,12 +12,12 @@
     <link rel="stylesheet" type="text/css" href="../styles/abn_tree.css">
 </head>
 <body>
-    <div id="wrapper" ng-controller="NewsController as news" ng-init="news.init()">
+    <div id="wrapper" ng-controller="NewsController as news">
         <div class="leftNavBar">
-            <abn-tree tree-data="folders"></abn-tree>
+            <abn-tree tree-data="folders" on-select="news.onFolderSelect(branch)"></abn-tree>
         </div>
         <div class="content">
-            <div infinite-scroll="news.nextPage()">
+            <div infinite-scroll="news.nextArticlesPage()" infinite-scroll-distance="1">
                 <div class="article" ng-repeat='article in articles'>
                     <h1>{{article.name}}</h1>
                     <p>{{article.description}}</p>
