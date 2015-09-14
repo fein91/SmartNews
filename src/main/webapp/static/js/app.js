@@ -25,7 +25,7 @@
 
     app.controller('NewsController', [ '$scope', 'articlesService', 'clientsService', function($scope, articlesService, clientsService) {
         var self = this;
-        self.clientId = 53;
+        self.clientId = 1111;
         self.page = 1;
         self.size = 17;
         $scope.client = {};
