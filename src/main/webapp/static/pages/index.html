@@ -6,25 +6,19 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
     <script src="../js/ng-infinite-scroll.js"></script>
+    <script src="../js/abn_tree_directive.js"></script>
     <script src="../js/app.js"></script>
     <link rel="stylesheet" type="text/css" href="../styles/styles.css">
+    <link rel="stylesheet" type="text/css" href="../styles/abn_tree.css">
 </head>
 <body>
-    <div id="wrapper">
+    <div id="wrapper" ng-controller="NewsController as news">
         <div class="leftNavBar">
-            <ul>
-                <li><a href="">Acceuil</a></li>
-                <li><a href="">Identification</a></li>
-                <li><a href="">Mon Parcours</a></li>
-                <li><a href="">Ma Formation</a></li>
-                <li><a href="">Mes Projets</a></li>
-                <li><a href="">Dossier de Veille</a></li>
-                <li><a href="">Contact Me</a></li>
-            </ul>
+            <abn-tree tree-data="folders" on-select="news.onFolderSelect(branch)"></abn-tree>
         </div>
-        <div class="content" ng-controller="NewsController as news">
-            <div infinite-scroll="news.nextPage()">
-                <div class="article" ng-repeat='article in news.articles'>
+        <div class="content">
+            <div infinite-scroll="news.nextArticlesPage()" infinite-scroll-distance="1">
+                <div class="article" ng-repeat='article in articles'>
                     <h1>{{article.name}}</h1>
                     <p>{{article.description}}</p>
                 </div>
@@ -34,4 +28,5 @@
     </div>
 </body>
 </html>
+
 
