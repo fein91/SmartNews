@@ -35,6 +35,18 @@ SET search_path = public, pg_catalog;
 SET default_with_oids = false;
 
 --
+-- TOC entry 179 (class 1259 OID 16599)
+-- Name: article_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE article_seq
+START WITH 1
+INCREMENT BY 1
+NO MINVALUE
+NO MAXVALUE
+CACHE 1;
+
+--
 -- TOC entry 172 (class 1259 OID 16531)
 -- Name: article; Type: TABLE; Schema: public; Owner: -
 --
@@ -46,20 +58,6 @@ CREATE TABLE article (
     url character varying(4000),
     description character varying(4000)
 );
-
-
---
--- TOC entry 179 (class 1259 OID 16599)
--- Name: article_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE article_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
 
 --
 -- TOC entry 173 (class 1259 OID 16537)
