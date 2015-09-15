@@ -45,6 +45,10 @@
             });
         };
 
+        self.newArticle = function() {
+
+        }
+
         self.onFolderSelect = function(branch) {
             folderId = branch.id;
             $scope.articles = branch.articles

@@ -17,6 +17,9 @@
             <abn-tree tree-data="folders" on-select="news.onFolderSelect(branch)"></abn-tree>
         </div>
         <div class="content">
+            <div>
+                <button ng-click="news.newArticle()"></button>
+            </div>
             <div infinite-scroll="news.nextArticlesPage()" infinite-scroll-distance="1">
                 <div class="article" ng-repeat='article in articles'>
                     <h1>{{article.name}}</h1>
@@ -25,6 +28,18 @@
             </div>
         </div>
 
+        <div class="shadow"></div>
+        <div class="popup">
+            <form method="post">
+                <div>
+                    <img class="cross-button" ng-click="" src="../images/cross.png">
+                    <h3>Add article</h3>
+                    <input type="text" id="url">
+                    <input type="text" id="description">
+                    <input type="submit" value="Submit">
+                </div>
+            </form>
+        </div>
     </div>
 </body>
 </html>
