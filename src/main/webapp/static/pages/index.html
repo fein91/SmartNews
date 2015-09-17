@@ -8,37 +8,47 @@
     <script src="../js/ng-infinite-scroll.js"></script>
     <script src="../js/abn_tree_directive.js"></script>
     <script src="../js/app.js"></script>
+    <script src="../js/popup.js"></script>
     <link rel="stylesheet" type="text/css" href="../styles/styles.css">
     <link rel="stylesheet" type="text/css" href="../styles/abn_tree.css">
 </head>
 <body>
-    <div id="wrapper" ng-controller="NewsController as news">
-        <div class="leftNavBar">
-            <abn-tree tree-data="folders" on-select="news.onFolderSelect(branch)"></abn-tree>
-        </div>
-        <div class="content">
-            <div>
-                <button ng-click="news.newArticle()"></button>
+    <div id="wrapper" >
+        <div ng-controller="NewsController as news">
+            <div class="leftNavBar">
+                <abn-tree tree-data="folders" on-select="news.onFolderSelect(branch)"></abn-tree>
             </div>
-            <div infinite-scroll="news.nextArticlesPage()" infinite-scroll-distance="1">
-                <div class="article" ng-repeat='article in articles'>
-                    <h1>{{article.name}}</h1>
-                    <p>{{article.description}}</p>
+            <div class="content">
+                <div>
+                    <button ng-click="news.newArticle()" class="button" type="button">Add article</button>
+                </div>
+                <div infinite-scroll="news.nextArticlesPage()" infinite-scroll-distance="1">
+                    <div class="article" ng-repeat='article in articles'>
+                        <h1>{{article.name}}</h1>
+                        <p>{{article.description}}</p>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="shadow"></div>
-        <div class="popup">
-            <form method="post">
-                <div>
-                    <img class="cross-button" ng-click="" src="../images/cross.png">
-                    <h3>Add article</h3>
-                    <input type="text" id="url">
-                    <input type="text" id="description">
-                    <input type="submit" value="Submit">
-                </div>
-            </form>
+        <div ng-controller="PopupController as popup">
+            <div class="dimmer" ng-click="popup.close()" ng-show="popup.show"></div>
+            <div class="popup" ng-show="popup.show">
+                <form ng-submit="popup.submit()">
+                    <div>
+                        <div ng-click="popup.close()" class="cross-button"><p>X</p></div>
+                        <!--<img class="cross-button" ng-click="popup.close()" src="../images/cross.png">-->
+                        <h1>Name</h1>
+                        <input class="text-input" type="text" ng-model="popup.name">
+                        <h1>URL</h1>
+                        <input class="text-input" type="text" ng-model="popup.url">
+                        <h1>Description</h1>
+                        <input class="text-input" type="text" ng-model="popup.descr">
+                        <button class="button submit" type="submit">Add article</button>
+                        <button  ng-click="popup.close()" type="button" class="button cancel">Cancel</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </body>

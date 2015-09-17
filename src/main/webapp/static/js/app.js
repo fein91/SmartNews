@@ -1,5 +1,5 @@
 (function(){
-    var app = angular.module('smartnews', ['infinite-scroll', 'angularBootstrapNavTree']);
+    var app = angular.module('smartnews', ['infinite-scroll', 'angularBootstrapNavTree', 'popup']);
 
     app.service('articlesService', [ '$http', function($http) {
 
