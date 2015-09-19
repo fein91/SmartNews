@@ -20,7 +20,7 @@
             </div>
             <div class="content">
                 <div>
-                    <button ng-click="news.newArticle()" class="button" type="button">Add article</button>
+                    <button ng-click="news.showPopup()" class="button" type="button">Add article</button>
                 </div>
                 <div infinite-scroll="news.nextArticlesPage()" infinite-scroll-distance="1">
                     <div class="article" ng-repeat='article in articles'>
@@ -32,12 +32,9 @@
         </div>
 
         <div ng-controller="PopupController as popup">
-            <div class="dimmer" ng-click="popup.close()" ng-show="popup.show"></div>
-            <div class="popup" ng-show="popup.show">
+            <modal-dialog show='popup.popupService.getData().popupShown' width='750px' height='60%'>
                 <form ng-submit="popup.submit()">
                     <div>
-                        <div ng-click="popup.close()" class="cross-button"><p>X</p></div>
-                        <!--<img class="cross-button" ng-click="popup.close()" src="../images/cross.png">-->
                         <h1>Name</h1>
                         <input class="text-input" type="text" ng-model="popup.name">
                         <h1>URL</h1>
@@ -48,7 +45,7 @@
                         <button  ng-click="popup.close()" type="button" class="button cancel">Cancel</button>
                     </div>
                 </form>
-            </div>
+            </modal-dialog>
         </div>
     </div>
 </body>

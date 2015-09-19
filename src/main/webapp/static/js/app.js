@@ -3,6 +3,20 @@
 
     app.service('articlesService', [ '$http', function($http) {
 
+        this.articles = [];
+
+        this.addArticle = function(name, url, descr) {
+            var article = {
+                name: name,
+                url: url,
+                description: descr
+            };
+            this.articles.push(article);
+
+            var url = "/rest/article";
+            return $http.post(url, article);
+        }
+
         this.nextPage = function(folderId, page, size) {
             var url = "/rest/folder/" + folderId + "/articles?page=" + page + '&size=' + size;
             console.log(url);
@@ -23,13 +37,14 @@
         }
     }]);
 
-    app.controller('NewsController', [ '$scope', 'articlesService', 'clientsService', function($scope, articlesService, clientsService) {
+    app.controller('NewsController', [ '$scope', 'articlesService', 'clientsService', 'popupService', function($scope, articlesService, clientsService, popupService) {
         var self = this;
         self.clientId = 1111;
         self.page = 1;
         self.size = 17;
+        self.popupService = popupService;
         $scope.client = {};
-        $scope.articles = [];
+        $scope.articles = articlesService.articles;
         $scope.folders = [];
         var folderId;
 
@@ -44,10 +59,6 @@
                 $scope.client = client;
             });
         };
-
-        self.newArticle = function() {
-
-        }
 
         self.onFolderSelect = function(branch) {
             folderId = branch.id;
@@ -68,6 +79,10 @@
                     }
                 });
             }
+        };
+
+        self.showPopup = function() {
+            self.popupService.showPopup();
         };
 
         self.init().then(function(resp) {
