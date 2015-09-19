@@ -62,7 +62,7 @@
 
         self.onFolderSelect = function(branch) {
             folderId = branch.id;
-            $scope.articles = branch.articles
+            articlesService.articles = $scope.articles = branch.articles
             self.page = 2;
         }
 
@@ -81,7 +81,7 @@
             }
         };
 
-        self.showPopup = function() {
+        self.showNewArticlePopup = function() {
             self.popupService.showPopup();
         };
 

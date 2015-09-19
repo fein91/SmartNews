@@ -20,7 +20,7 @@
             </div>
             <div class="content">
                 <div>
-                    <button ng-click="news.showPopup()" class="button" type="button">Add article</button>
+                    <button ng-click="news.showNewArticlePopup()" class="button" type="button">Add article</button>
                 </div>
                 <div infinite-scroll="news.nextArticlesPage()" infinite-scroll-distance="1">
                     <div class="article" ng-repeat='article in articles'>
