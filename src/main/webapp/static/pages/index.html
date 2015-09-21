@@ -8,23 +8,45 @@
     <script src="../js/ng-infinite-scroll.js"></script>
     <script src="../js/abn_tree_directive.js"></script>
     <script src="../js/app.js"></script>
+    <script src="../js/popup.js"></script>
     <link rel="stylesheet" type="text/css" href="../styles/styles.css">
     <link rel="stylesheet" type="text/css" href="../styles/abn_tree.css">
 </head>
 <body>
-    <div id="wrapper" ng-controller="NewsController as news">
-        <div class="leftNavBar">
-            <abn-tree tree-data="folders" on-select="news.onFolderSelect(branch)"></abn-tree>
-        </div>
-        <div class="content">
-            <div infinite-scroll="news.nextArticlesPage()" infinite-scroll-distance="1">
-                <div class="article" ng-repeat='article in articles'>
-                    <h1>{{article.name}}</h1>
-                    <p>{{article.description}}</p>
+    <div id="wrapper" >
+        <div ng-controller="NewsController as news">
+            <div class="leftNavBar">
+                <abn-tree tree-data="folders" on-select="news.onFolderSelect(branch)"></abn-tree>
+            </div>
+            <div class="content">
+                <div>
+                    <button ng-click="news.showNewArticlePopup()" class="button" type="button">Add article</button>
+                </div>
+                <div infinite-scroll="news.nextArticlesPage()" infinite-scroll-distance="1">
+                    <div class="article" ng-repeat='article in articles'>
+                        <h1>{{article.name}}</h1>
+                        <p>{{article.description}}</p>
+                    </div>
                 </div>
             </div>
         </div>
 
+        <div ng-controller="PopupController as popup">
+            <modal-dialog show='popup.popupService.getData().popupShown' width='750px' height='60%'>
+                <form ng-submit="popup.submit()">
+                    <div>
+                        <h1>Name</h1>
+                        <input class="text-input" type="text" ng-model="popup.name">
+                        <h1>URL</h1>
+                        <input class="text-input" type="text" ng-model="popup.url">
+                        <h1>Description</h1>
+                        <input class="text-input" type="text" ng-model="popup.descr">
+                        <button class="button submit" type="submit">Add article</button>
+                        <button  ng-click="popup.close()" type="button" class="button cancel">Cancel</button>
+                    </div>
+                </form>
+            </modal-dialog>
+        </div>
     </div>
 </body>
 </html>
