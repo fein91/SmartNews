@@ -9,10 +9,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration("classpath:spring-config.xml")
 public abstract class AbstractDaoTest {
     @Autowired
-    ClientDao clientDao;
+    protected ClientDao clientDao;
 
     @Autowired
-    ArticleDao articleDao;
+    protected ArticleDao articleDao;
 
     public void setClientDao(ClientDao clientDao) {
         this.clientDao = clientDao;

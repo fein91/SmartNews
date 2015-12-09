@@ -5,10 +5,16 @@
     <title>Spring Angular</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-    <script src="../js/ng-infinite-scroll.js"></script>
-    <script src="../js/abn_tree_directive.js"></script>
-    <script src="../js/app.js"></script>
-    <script src="../js/popup.js"></script>
+    <script src="../js/app/components/ng-infinite-scroll.js"></script>
+    <script src="../js/app/components/abn_tree_directive.js"></script>
+    <script src="../js/app/components/modalDialog.directive.js"></script>
+    <script src="../js/app/services/clientData.service.js"></script>
+    <script src="../js/app/services/articles.service.js"></script>
+    <script src="../js/app/services/clients.service.js"></script>
+    <script src="../js/app/services/popup.service.js"></script>
+    <script src="../js/app/app.js"></script>
+    <script src="../js/app/popup.controller.js"></script>
+    <script src="../js/app/news.controller.js"></script>
     <link rel="stylesheet" type="text/css" href="../styles/styles.css">
     <link rel="stylesheet" type="text/css" href="../styles/abn_tree.css">
 </head>
@@ -16,14 +22,14 @@
     <div id="wrapper" >
         <div ng-controller="NewsController as news">
             <div class="leftNavBar">
-                <abn-tree tree-data="folders" on-select="news.onFolderSelect(branch)"></abn-tree>
+                <abn-tree tree-data="news.clientData.folders" on-select="news.onFolderSelect(branch)"></abn-tree>
             </div>
             <div class="content">
                 <div>
                     <button ng-click="news.showNewArticlePopup()" class="button" type="button">Add article</button>
                 </div>
                 <div infinite-scroll="news.nextArticlesPage()" infinite-scroll-distance="1">
-                    <div class="article" ng-repeat='article in articles'>
+                    <div class="article" ng-repeat='article in news.clientData.articles'>
                         <h1>{{article.name}}</h1>
                         <p>{{article.description}}</p>
                     </div>
@@ -32,7 +38,7 @@
         </div>
 
         <div ng-controller="PopupController as popup">
-            <modal-dialog show='popup.popupService.getData().popupShown' width='750px' height='60%'>
+            <modal-dialog show='popupService.getData().popupShown' width='750px' height='60%'>
                 <form ng-submit="popup.submit()">
                     <div>
                         <h1>Name</h1>

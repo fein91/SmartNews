@@ -17,6 +17,7 @@ public class FoldersServiceImpl implements FoldersService {
     @Autowired
     private ArticleMapper articleMapper;
 
+    @Override
     @Transactional
     public List<ArticleDto> findArticlesByFolderID(long folderId, int page, int size) {
         int start = (page - 1) * size;
