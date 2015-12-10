@@ -44,16 +44,16 @@
                         <h1>Enter URL</h1>
                     </div>
                     <div class="modal-group">
-                        <input class="text-input" name="email" type="email" ng-model="popup.url" required>
-                        <span class="validation-msg" ng-show="articleForm.email.$dirty && articleForm.email.$invalid">
-                            <span ng-show="articleForm.email.$error.required">Email is required.</span>
-                            <span ng-show="articleForm.email.$error.email">Invalid email address.</span>
+                        <input class="text-input" type="url" name="url" ng-model="popup.url" required>
+                        <span class="validation-msg" ng-show="articleForm.url.$dirty && articleForm.url.$invalid">
+                            <span ng-show="articleForm.url.$error.required">URL is required.</span>
+                            <span ng-show="articleForm.url.$error.url">Invalid URL.</span>
                         </span>
                     </div>
 
                     <div>
                         <button class="button submit" type="submit"
-                                ng-disabled="articleForm.email.$dirty && articleForm.email.$invalid">
+                                ng-disabled="articleForm.url.$dirty && articleForm.url.$invalid">
                             Add article</button>
                         <button ng-click="popup.close()" type="button" class="button cancel">Cancel</button>
                     </div>

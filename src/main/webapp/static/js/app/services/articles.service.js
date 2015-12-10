@@ -6,7 +6,7 @@ angular
             clientDataService.getData().articles.push(article);
 
             var url = "/rest/article";
-            console.log("post request produced: " + url + " with body: " + article);
+            console.log("post request produced: " + url + " with body: " + JSON.stringify(article));
             return $http.post(url, article);
         }
 
@@ -16,7 +16,7 @@ angular
             return $http.get(url);
         }
 
-        this.findRootFolderId = function(folders) {
-            return folders.length > 0 ? folders[0].id : undefined;
+        this.findRootFolder = function(folders) {
+            return folders.length > 0 ? folders[0] : undefined;
         }
     });

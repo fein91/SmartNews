@@ -9,12 +9,15 @@ angular
         self.init = function() {
             return clientsService.getClient(self.clientData.clientId).then(function(response){
                 var client = response.data;
+                console.log('init client: ' + JSON.stringify(client));
                 var folders = client.folders;
                 for (var i = 0; i < folders.length; i++) {
                     self.clientData.folders.push(folders[i]);
                 }
-                self.clientData.folderId = articlesService.findRootFolderId(folders)
+                var rootFolder = articlesService.findRootFolder(folders);
+                self.clientData.folderId = rootFolder.id
                 self.clientData.client = client;
+                //self.clientData.articles = rootFolder.articles;
             });
         };
 
@@ -30,10 +33,12 @@ angular
                     var items = response.data;
 
                     if (items.length > 0) {
-                        self.page++;
+                        console.log('page#' + self.page + ' loaded');
                         for (var i = 0; i < items.length; i++) {
+                            console.log('article#' + items[i].id +' loaded: ');
                             self.clientData.articles.push(items[i]);
                         }
+                        self.page++;
                     }
                 });
             }
