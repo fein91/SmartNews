@@ -31,6 +31,7 @@
                 <div infinite-scroll="news.nextArticlesPage()" infinite-scroll-distance="1">
                     <div class="article" ng-repeat='article in news.articles'>
                         <h1>{{article.name}}</h1>
+                        <p>{{article.url}}</p>
                         <p>{{article.description}}</p>
                     </div>
                 </div>
