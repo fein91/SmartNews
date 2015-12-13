@@ -3,7 +3,7 @@ angular
     .service('articlesService', function($http, clientDataService) {
 
         this.addArticle = function(article) {
-            clientDataService.getData().articles.push(article);
+            clientDataService.addArticle(article);
 
             var url = "/rest/article";
             console.log("post request produced: " + url + " with body: " + JSON.stringify(article));

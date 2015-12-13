@@ -14,7 +14,7 @@
                     name: self.name,
                     url: self.url,
                     description: self.descr,
-                    folderId: clientDataService.getData().folderId
+                    folderId: clientDataService.folderId
                 };
 
                 articlesService.addArticle(article);

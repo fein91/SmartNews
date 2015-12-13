@@ -4,7 +4,8 @@ angular
         var self = this;
         self.page = 1;
         self.size = 17;
-        self.clientData = clientDataService.getData();
+        self.clientData = clientDataService;
+        self.articles = clientDataService.articles;
 
         self.init = function() {
             return clientsService.getClient(self.clientData.clientId).then(function(response){
@@ -12,18 +13,17 @@ angular
                 console.log('init client: ' + JSON.stringify(client));
                 var folders = client.folders;
                 for (var i = 0; i < folders.length; i++) {
-                    self.clientData.folders.push(folders[i]);
+                    self.clientData.addFolder(folders[i]);
                 }
                 var rootFolder = articlesService.findRootFolder(folders);
                 self.clientData.folderId = rootFolder.id
                 self.clientData.client = client;
-                //self.clientData.articles = rootFolder.articles;
             });
         };
 
         self.onFolderSelect = function(branch) {
             self.clientData.folderId = branch.id;
-            self.clientData.articles = branch.articles
+            self.articles = branch.articles
             self.page = 2;
         }
 
@@ -36,7 +36,7 @@ angular
                         console.log('page#' + self.page + ' loaded');
                         for (var i = 0; i < items.length; i++) {
                             console.log('article#' + items[i].id +' loaded: ');
-                            self.clientData.articles.push(items[i]);
+                            self.clientData.addArticle(items[i]);
                         }
                         self.page++;
                     }
