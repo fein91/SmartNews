@@ -66,9 +66,9 @@
             <version>${log4j.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>${guava.version}</version>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>${jsonup.version}</version>
         </dependency>
 
     </dependencies>
@@ -88,7 +88,7 @@
         <spring-web.version>4.1.6.RELEASE</spring-web.version>
         <jetty-maven-plugin.version>9.2.8.v20150217</jetty-maven-plugin.version>
         <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
-        <guava.version>18.0</guava.version>
+        <jsonup.version>1.7.1</jsonup.version>
     </properties>
 
     <build>

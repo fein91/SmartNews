@@ -5,6 +5,10 @@ import com.smartnews.model.Article;
 import java.util.List;
 
 public interface ArticleDao {
-    public List<Article> findByFolderId(long folderId, int start, int limit);
+    List<Article> findByFolderId(long folderId, int start, int limit);
+
+    Long save(Article article);
+
+    Article findById(long articleId);
 
 }

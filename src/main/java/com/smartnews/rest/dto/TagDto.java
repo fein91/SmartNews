@@ -1,9 +1,12 @@
 package com.smartnews.rest.dto;
 
-/**
- * Created by fein on 8/29/2015.
- */
 public class TagDto extends NamedDto {
+
+    //dummy constructor for json parsing
+    public TagDto() {
+        super(0, null);
+    }
+
     public TagDto(long id, String name) {
         super(id, name);
     }

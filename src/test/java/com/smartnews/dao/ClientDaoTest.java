@@ -15,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-public class ClientDaoTest extends AbstractClientDaoTest {
+public class ClientDaoTest extends AbstractDaoTest {
 
     private static final String TEST_CLIENT_INSERT_GET =  "testInsertAndGetClient";
     private static final String TEST_UPDATE_CLIENT = "testUpdateClient";
