@@ -4,43 +4,44 @@ angular
         var self = this;
         self.page = 1;
         self.size = 17;
-        self.clientData = clientDataService;
+        self.clientId = clientDataService.clientId;
+        self.folderId = clientDataService.folderId;
+        self.folders = clientDataService.folders;
         self.articles = clientDataService.articles;
 
         self.init = function() {
-            return clientsService.getClient(self.clientData.clientId).then(function(response){
-                var client = response.data;
-                console.log('init client: ' + JSON.stringify(client));
-                var folders = client.folders;
-                for (var i = 0; i < folders.length; i++) {
-                    self.clientData.addFolder(folders[i]);
-                }
-                var rootFolder = articlesService.findRootFolder(folders);
-                self.clientData.folderId = rootFolder.id
-                self.clientData.client = client;
-            });
+            return clientsService.getClient(self.clientId)
+                .then(function successCallback(response){
+                    var client = response.data;
+                    console.log('init client from db: ' + JSON.stringify(client));
+                    clientsService.initClientData(client);
+                }, function errorCallback(response) {
+                    console.log('got ' + response.status + ' error');
+                    clientsService.initMockClientData();
+                });
         };
 
         self.onFolderSelect = function(branch) {
-            self.clientData.folderId = branch.id;
-            self.articles = branch.articles
+            clientDataService.folderId = branch.id;
+            clientDataService.articles = branch.articles
             self.page = 2;
         }
 
         self.nextArticlesPage = function() {
-            if (self.clientData.folderId) {
-                articlesService.nextPage(self.clientData.folderId, self.page, self.size).then(function(response){
-                    var items = response.data;
+            if (self.folderId) {
+                articlesService.nextPage(self.folderId, self.page, self.size)
+                    .then(function(response){
+                        var items = response.data;
 
-                    if (items.length > 0) {
-                        console.log('page#' + self.page + ' loaded');
-                        for (var i = 0; i < items.length; i++) {
-                            console.log('article#' + items[i].id +' loaded: ');
-                            self.clientData.addArticle(items[i]);
+                        if (items.length > 0) {
+                            console.log('page#' + self.page + ' loaded');
+                            for (var i = 0; i < items.length; i++) {
+                                console.log('article#' + items[i].id +' loaded: ');
+                                clientDataService.addArticle(items[i]);
+                            }
+                            self.page++;
                         }
-                        self.page++;
-                    }
-                });
+                    });
             }
         };
 

@@ -22,7 +22,7 @@
     <div id="wrapper" >
         <div ng-controller="NewsController as news">
             <div class="leftNavBar">
-                <abn-tree tree-data="news.clientData.folders" on-select="news.onFolderSelect(branch)"></abn-tree>
+                <abn-tree tree-data="news.folders" on-select="news.onFolderSelect(branch)"></abn-tree>
             </div>
             <div class="content">
                 <div>
