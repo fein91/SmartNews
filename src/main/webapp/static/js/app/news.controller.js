@@ -23,13 +23,14 @@ angular
 
         self.onFolderSelect = function(branch) {
             clientDataService.folderId = branch.id;
-            clientDataService.articles = branch.articles
+            clientDataService.articles = branch.articles;
+            self.articles = branch.articles;
             self.page = 2;
         }
 
         self.nextArticlesPage = function() {
-            if (self.folderId) {
-                articlesService.nextPage(self.folderId, self.page, self.size)
+            if (clientDataService.folderId) {
+                articlesService.nextPage(clientDataService.folderId, self.page, self.size)
                     .then(function(response){
                         var items = response.data;
 
