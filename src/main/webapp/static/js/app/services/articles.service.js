@@ -1,8 +1,9 @@
 angular
     .module('smartnews.articlesService', [])
     .service('articlesService', function($http, clientDataService) {
+        var self = this;
 
-        this.addArticle = function(article) {
+        self.addArticle = function(article) {
             clientDataService.addArticle(article);
 
             var url = "/rest/article";
@@ -10,13 +11,20 @@ angular
             return $http.post(url, article);
         }
 
-        this.nextPage = function(folderId, page, size) {
+        self.nextPage = function(folderId, page, size) {
             var url = "/rest/folder/" + folderId + "/articles?page=" + page + '&size=' + size;
             console.log("get request produced: " + url);
             return $http.get(url);
         }
 
-        this.findRootFolder = function(folders) {
+        self.findRootFolder = function(folders) {
             return folders.length > 0 ? folders[0] : undefined;
+        }
+
+        self.addRootFolder = function(branch) {
+            branch.add_root_branch({
+                name: 'root',
+                children: []
+            });
         }
     });

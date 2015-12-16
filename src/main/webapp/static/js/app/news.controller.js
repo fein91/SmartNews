@@ -8,6 +8,7 @@ angular
         self.folderId = clientDataService.folderId;
         self.folders = clientDataService.folders;
         self.articles = clientDataService.articles;
+        self.foldersTree = {};
 
         self.init = function() {
             return clientsService.getClient(self.clientId)
